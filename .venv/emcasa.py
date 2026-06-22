@@ -335,11 +335,80 @@ class MoroFlix(QWidget):
 
         scroll_harry_potter.setFixedHeight(450)
 
+        #======================
+        # CATÁLOGO SERIES
+        #====================== 
+
+        Titulo_series= QLabel("Séries")
+        Titulo_series.setStyleSheet("""
+            font-size:28px;
+            font-weight:bold;
+        """)        
+        catalogo_series = QHBoxLayout()
+        catalogo_series.setSpacing(10)  
+
+        series = [
+            ("stranger.jpg", "Stranger Things"),
+            ("breaking.jpg", "Breaking Bad"),
+            ("gameofthrones.jpg", "Game of Thrones"),
+            ("theoffice.jpg", "The Office"),
+            ("friends.jpg", "Friends"),
+            ("suits.jpg", "Suits"),
+            ("bigbangtheory.jpg", "The Big Bang Theory"),
+            ("brooklyn.jpg", "Brooklyn Nine-Nine")
+        ]
+
+        for imagem_arquivo, nome_series in series:
+
+            imagem = QLabel()
+            imagem.setPixmap(
+                QPixmap(imagem_arquivo).scaled(
+                    220,
+                    320,
+                    Qt.AspectRatioMode.KeepAspectRatio
+                )
+            )
+            imagem.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+            nome = QLabel(nome_series)
+            nome.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+            botao = QPushButton(" Assistir")
+            botao.setIcon(QIcon("reproduzir.png"))
+            botao.setIconSize(QSize(24, 24))
+            botao.setStyleSheet(estilo_botao)
+
+            serie = QVBoxLayout()
+            serie.addWidget(imagem)
+            serie.addWidget(nome)
+            serie.addWidget(
+                botao,
+                alignment=Qt.AlignmentFlag.AlignCenter
+            )
+
+            catalogo_series.addLayout(serie)
+
+            widget_series = QWidget()
+        
+            widget_series.setLayout(catalogo_series)        
+            scroll_series = QScrollArea()
+            scroll_series.setWidget(widget_series)
+            scroll_series.setWidgetResizable(True)
+
+            scroll_series.setHorizontalScrollBarPolicy(
+            Qt.ScrollBarPolicy.ScrollBarAsNeeded
+            )
+
+            scroll_series.setVerticalScrollBarPolicy(
+             Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+
+            scroll_series.setFixedHeight(450)
 
 
-        # =====================
-        # CONTEÚDO COM SCROLL
-        # =====================
+
+    # =====================
+    # CONTEÚDO COM SCROLL
+    # =====================
 
         conteudo = QWidget()
 
@@ -354,6 +423,8 @@ class MoroFlix(QWidget):
         principal.addWidget(scroll_star_wars)
         principal.addWidget(Titulo_harry_potter)
         principal.addWidget(scroll_harry_potter)
+        principal.addWidget(Titulo_series)
+        principal.addWidget(scroll_series)
         principal.addSpacing(30)
 
         principal.addWidget(titulo_pixar)
